@@ -133,7 +133,9 @@
 
 #endif
 
-#if defined(ENABLE_WEB) || defined(ENABLE_MB)
+#if defined(ENABLE_WEB)
+
+#define QUEUE_SIZE 50
 
 #endif
 
