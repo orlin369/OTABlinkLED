@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+	<link rel="stylesheet" href="style.css">
+	<script src="msg.js"></script>
+</head>
+<body>
+	
+	<div class="container">
+		<table>
+			<tr><th>PARAMETER</th><th>VALUE</th></tr>
+			<tr><td>Uptime</td><td><span id="uptime"></span></td></tr>
+			<tr><td>Interface</td><td><span id="if"></span></td></tr>
+			<tr><td>Local IP</td><td><span id="local_ip"></span></td></tr>
+			<tr><td>WG IP</td><td><span id="wg_ip"></span></td></tr>
+			<tr><td>Service Port</td><td><span id="web_port"></span></td></tr>
+		</table>
+	</div>
+	
+    <script>
+        function downloadData()
+        {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function()
+            {
+                if (this.readyState == 4 && this.status == 200)
+                {
+                    var response = JSON.parse(this.responseText);
+                    // console.log(response);
+
+					// Update params
+                    document.getElementById("uptime").innerHTML = response.status.uptime;
+                    document.getElementById("if").innerHTML = response.status.if;
+                    document.getElementById("local_ip").innerHTML = response.status.local_ip;
+                    document.getElementById("wg_ip").innerHTML = response.status.wg_ip;
+                    document.getElementById("web_port").innerHTML = response.status.web_port;
+                }
+            };
+            xhttp.open("GET", "data", true);
+            xhttp.send();
+        }
+		
+		downloadData();
+        setInterval(downloadData, 3000);		
+    </script>
+</body>
+</html>
