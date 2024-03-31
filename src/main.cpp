@@ -14,10 +14,6 @@
 #include <WiFiUdp.h>
 #include "time.h"
 
-#if defined(ENABLE_WEB)
-#include "ArduinoJson.h"
-#endif
-
 #if defined(ENABLE_WIFI)
 #include <WiFi.h>
 #endif
@@ -28,25 +24,16 @@
 #endif
 
 #if defined(ENABLE_OTA)
-
 #include <ArduinoOTA.h>
-
 #endif
 
 #if defined(ENABLE_WG)
-
 #include <WireGuard-ESP32.h>
-
-#endif
-
-#if defined(ENABLE_BMP085)
-
-#include <Adafruit_BMP085.h>
-
 #endif
 
 #if defined(ENABLE_WEB)
 #include <WebServer.h>
+#include "ArduinoJson.h"
 #endif
 
 #include <made4home.h>
@@ -73,30 +60,6 @@ struct tm UptimeInfo_g;
  */
 FxTimer *UpdateTimer_g;
 
-/**
- * @brief Silo 1 model.
- * 
- */
-SiloModel *Silo1_g;
-
-/**
- * @brief Silo 2 model.
- * 
- */
-SiloModel *Silo2_g;
-
-/**
- * @brief Silo 3 model.
- * 
- */
-SiloModel *Silo3_g;
-
-/**
- * @brief Silo 4 model.
- * 
- */
-SiloModel *Silo4_g;
-
 #if defined(ENABLE_ETH)
 
 /**
@@ -113,7 +76,7 @@ static bool EthernetConnected_g = false;
  * @brief [Interface] Address
  * 
  */
-IPAddress LocalIP_g(172,33,6,5);
+IPAddress LocalIP_g(192,168,0,2);
 
 /**
  * @brief Wire Guard client.
@@ -151,35 +114,6 @@ WebServer WebServer_g(WEB_SERVER_PORT);
 
 #endif
 
-#if defined(ENABLE_MB)
-
-/**
- * @brief The RS485 module has no half-duplex, so the parameter with the DE/RE pin is required!
- * 
- */
-ModbusClientRTU *ModbusClient_g;
-
-/**
- * @brief Coil data.
- * 
- */
-CoilData CoilData_g(12);
-
-#endif
-
-#if defined(ENABLE_BMP085)
-
-/**
- * @brief BMP180 sensor.
- * 
- */
-Adafruit_BMP085 BMP085_g;
-
-float Temperate_g;
-int32_t Pressure_g;
-float Altitude_g;
-
-#endif
 
 #if defined(ENABLE_WEB)
 
